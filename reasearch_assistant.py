@@ -30,7 +30,6 @@ def build_retriever(pdf_path:str):
     retriever=vector_store.as_retriever(search_type='similarity',search_kwargs={'k':4})
     return retriever
 
-## Now making the retriever as tool so that our agent can choose
 def make_rag_tool(retriever):
     @tool
     def rag_search(query:str)->str:
@@ -40,7 +39,6 @@ def make_rag_tool(retriever):
         content_text="\n\n".join(doc.page_content for doc in retrieved_docs)
         return content_text if content_text else 'No relevant information Present'
     return rag_search
-
 
 #3 make the web search tool 
 @tool
@@ -54,7 +52,6 @@ def make_web_tool(query:str)->str:
         return search.run(query)
     except Exception as e:
         return "Web search failed :{e}"
-    
 
 # make the wikipedia tool
 @tool
@@ -68,13 +65,14 @@ def make_wiki_tool(query:str)->str:
     except Exception as e:
         return f"Wikipedia searchfailed:{e}"
 
+# Building the Agent
 def build_agent(retriever=None):
     tools=[make_web_tool,make_wiki_tool]
     if retriever is not None:
         tools.append(make_rag_tool(retriever))
 
     agent_llm=ChatGroq(
-        model='llama-3.3-70b-versatile',
+        model='openai/gpt-oss-120b',
         groq_api_key=os.getenv("GROQ_API_KEY"),
         temperature=0
     )
@@ -135,18 +133,7 @@ def summarising_final_answer(question:str,agent_output:str) -> str:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
 

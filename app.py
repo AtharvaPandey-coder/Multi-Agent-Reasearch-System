@@ -11,7 +11,6 @@ st.caption('upload the document(optional) .the agent tries it first,then falls b
 #Step1->Optional
 uploaded_file=st.file_uploader("Uploads a PDF(optional)",type=['pdf'])
 
-
 #Step2 -> Build retriever + agent once per session
 if uploaded_file is not None and "agent" not in st.session_state:
     with st.spinner('Processing document ....'):
