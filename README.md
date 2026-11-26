@@ -1,3 +1,8 @@
+
+## 🚀 Live Demo
+
+👉 **[Try the Multi-Agent Research System](https://multi-agent-system-analysis.streamlit.app/)**
+
 Multi-Tool Research Assistant
 
 An agentic research assistant built with LangChain that answers questions by intelligently routing across multiple tools — searching provided documents first, and falling back to the web or Wikipedia only when needed.
